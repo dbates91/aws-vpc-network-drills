@@ -103,16 +103,3 @@ Installed Apache HTTP Server on the EC2 instance:
 ```bash
 sudo dnf install httpd -y
 sudo systemctl enable --now httpd
-
-## Troubleshooting Exercises
-
-This project will intentionally introduce networking failures such as:
-
-* Missing security group rules
-* Missing internet routes
-* Incorrect route table associations
-* Stopped web services
-* EC2 connectivity problems
-
-Each failure will be diagnosed, corrected, and documented.
-
