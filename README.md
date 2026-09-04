@@ -98,12 +98,13 @@ Created a security group for the EC2 web server with:
 
 ### Apache Web Server
 
+### Apache Web Server
+
 Installed Apache HTTP Server on the EC2 instance:
 
 ```bash
 sudo dnf install httpd -y
 sudo systemctl enable --now httpd
-
 ```
 
 Verified Apache was running:
@@ -112,10 +113,80 @@ Verified Apache was running:
 sudo systemctl status httpd
 ```
 
-Verified the web server locally:
+Verified the web server locally from the EC2 instance:
 
 ```bash
 curl http://localhost
 ```
 
 The Apache test page returned successfully.
+
+### End-to-End Validation
+
+Accessed the EC2 instance through its public IPv4 address using HTTP.
+
+Traffic followed this path:
+
+```text
+Browser
+↓
+Internet
+↓
+Internet Gateway
+↓
+Public Route Table
+↓
+Public Subnet
+↓
+Security Group
+↓
+EC2
+↓
+Apache TCP/80
+```
+
+The Apache `It works!` page confirmed successful end-to-end connectivity.
+
+## Break/Fix Exercise
+
+I intentionally removed the HTTP TCP port 80 inbound rule from the EC2 security group.
+
+The website became unreachable even though:
+
+- EC2 was still running
+- Apache was still running
+- The Internet Gateway was attached
+- The route table was correct
+- The instance still had a public IPv4 address
+
+After restoring the HTTP rule, connectivity returned.
+
+**Key lesson:** Routing determines whether traffic has a path. Security groups determine whether that traffic is allowed.
+
+## Screenshots
+
+### VPC Resource Map
+
+![VPC Resource Map](screenshots/01-vpc-resource-map.png)
+
+### EC2 Instance Summary
+
+![EC2 Instance Summary](screenshots/02-ec2-instance-summary.png)
+
+### Security Group Rules
+
+![Security Group Rules](screenshots/03-security-group-inbound-rules.png)
+
+### Working Apache Web Server
+
+![Apache Web Server](screenshots/04-apache-web-server-working.png)
+
+## Future Troubleshooting Drills
+
+Future repetitions of this lab will test:
+
+- Missing internet routes
+- Incorrect route table associations
+- Missing public IPv4 addresses
+- Stopped web services
+- Incorrect security group rules
