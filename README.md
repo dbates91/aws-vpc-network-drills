@@ -62,6 +62,20 @@ Created and attached an Internet Gateway named `network-drill-igw` to the VPC.
 
 **Memory:** Internet Gateway = the VPC's entrance and exit to the internet.
 
+### Public Route Table
+
+Created a route table named `public-route-table` and associated it with `public-subnet-1`.
+
+The route table contains:
+
+* `10.0.0.0/16 → local`
+* `0.0.0.0/0 → network-drill-igw`
+
+**Why:** The route table determines where traffic from the subnet is sent. The local route allows communication within the VPC, while the default route sends internet-bound IPv4 traffic to the Internet Gateway.
+
+**Key lesson:** A subnet becomes public because its associated route table contains a route to an Internet Gateway.
+
+
 
 ## Troubleshooting Exercises
 
