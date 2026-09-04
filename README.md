@@ -54,6 +54,15 @@ By completing this lab repeatedly, I will practice:
 * VPC CIDR: `10.0.0.0/16`
 * Public Subnet CIDR: `10.0.1.0/24`
 
+* ### Internet Gateway
+
+Created and attached an Internet Gateway named `network-drill-igw` to the VPC.
+
+**Why:** The Internet Gateway provides the VPC with a connection point to the public internet. Attaching it alone does not make a subnet public; the subnet must also use a route table that sends internet-bound traffic to the Internet Gateway.
+
+**Memory:** Internet Gateway = the VPC's entrance and exit to the internet.
+
+
 ## Troubleshooting Exercises
 
 This project will intentionally introduce networking failures such as:
