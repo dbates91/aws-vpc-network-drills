@@ -54,7 +54,7 @@ By completing this lab repeatedly, I will practice:
 * VPC CIDR: `10.0.0.0/16`
 * Public Subnet CIDR: `10.0.1.0/24`
 
-* ### Internet Gateway
+### Internet Gateway
 
 Created and attached an Internet Gateway named `network-drill-igw` to the VPC.
 
@@ -75,7 +75,34 @@ The route table contains:
 
 **Key lesson:** A subnet becomes public because its associated route table contains a route to an Internet Gateway.
 
+### EC2 Web Server
 
+Launched an Amazon Linux 2023 EC2 instance named `network-drill-web` inside `public-subnet-1`.
+
+The EC2 instance received a private IPv4 address from the `10.0.1.0/24` subnet and a public IPv4 address for internet connectivity.
+
+**Why:** EC2 provides the actual workload inside the network. The VPC, subnet, routing, and security controls exist to provide controlled connectivity to resources such as this server.
+
+**Key lesson:** A public IPv4 address alone does not make an EC2 instance publicly reachable. The subnet must also have a route to an Internet Gateway and the security group must permit the required traffic.
+
+### Security Group
+
+Created a security group for the EC2 web server with:
+
+- SSH — TCP 22 — restricted to my public IP
+- HTTP — TCP 80 — allowed from `0.0.0.0/0`
+
+**Why:** The route table determines whether traffic has a network path. The security group determines whether that traffic is permitted to reach the EC2 instance.
+
+**Security decision:** SSH was restricted to my IP rather than exposed to the entire internet.
+
+### Apache Web Server
+
+Installed Apache HTTP Server on the EC2 instance:
+
+```bash
+sudo dnf install httpd -y
+sudo systemctl enable --now httpd
 
 ## Troubleshooting Exercises
 
