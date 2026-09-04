@@ -98,8 +98,6 @@ Created a security group for the EC2 web server with:
 
 ### Apache Web Server
 
-### Apache Web Server
-
 Installed Apache HTTP Server on the EC2 instance:
 
 ```bash
