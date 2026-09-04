@@ -103,3 +103,19 @@ Installed Apache HTTP Server on the EC2 instance:
 ```bash
 sudo dnf install httpd -y
 sudo systemctl enable --now httpd
+
+```
+
+Verified Apache was running:
+
+```bash
+sudo systemctl status httpd
+```
+
+Verified the web server locally:
+
+```bash
+curl http://localhost
+```
+
+The Apache test page returned successfully.
